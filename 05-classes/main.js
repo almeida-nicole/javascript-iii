@@ -13,7 +13,16 @@ class Ponto {
     }
 
     mover_verticalmente(distancia) {
-        this.y += distancia
+        let proximoPosicaoY = this.y + distancia;
+        if(proximoPosicaoY < 0) {
+            proximoPosicaoY = 0;
+        }
+
+        const alturaMaxima = window.innerHeight - this.altura;
+        if(proximoPosicaoY > alturaMaxima) {
+            proximoPosicaoY = alturaMaxima
+        }
+        this.y = proximoPosicaoY
         return this.y
     }
 
@@ -47,8 +56,8 @@ class Div extends Ponto {
         this.node.style.width = this.largura + "px"
         this.node.style.height = this.altura + "px"
         this.node.style.backgroundColor = this.cor
-        // this.node.style.top = this.x + "px"
-        // this.node.style.left = this.y + "px"
+        this.node.style.top = this.x + "px"
+        this.node.style.left = this.y + "px"
         body.appendChild(this.node)
     }
 
@@ -69,12 +78,17 @@ document.addEventListener("keydown", function(event){
             bolinhas[0].mover_horizontalmente(10)
             bolinhas[0].atualizar();    
         }
-        if (event.key === "ArrowLeft") {
+        else if (event.key === "ArrowLeft") {
             bolinhas[0].mover_horizontalmente(-10)
             bolinhas[0].atualizar();    
         }
         else if (event.key === "ArrowDown") {
-            // mover_verticalmente(distancia)
+            bolinhas[0].mover_verticalmente(10)
+            bolinhas[0].atualizar();    
+        }
+        else if (event.key === "ArrowUp") {
+            bolinhas[0].mover_verticalmente(-10)
+            bolinhas[0].atualizar();   
         }
 
 })
